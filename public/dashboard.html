@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jugaad – Dashboard</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background-color: #f3f4f6;
+      color: #111827;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+
+    .page-wrapper {
+      width: 100%;
+      max-width: 1100px;
+    }
+
+    .dashboard-card {
+      background-color: #ffffff;
+      border-radius: 1.25rem;
+      box-shadow: 0 24px 50px -30px rgba(15,23,42,0.8);
+      padding: 1.75rem 2rem;
+      display: grid;
+      grid-template-columns: minmax(0, 1.6fr) minmax(0, 1.1fr);
+      gap: 1.75rem;
+    }
+
+    header {
+      margin-bottom: 1rem;
+    }
+
+    .title-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .title-row h1 {
+      font-size: 1.8rem;
+      font-weight: 800;
+    }
+
+    .title-row span {
+      font-size: 0.85rem;
+      color: #6b7280;
+    }
+
+    header p {
+      font-size: 0.95rem;
+      color: #4b5563;
+      margin-top: 0.3rem;
+    }
+
+    .profile-section h2,
+    .info-section h2 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.7rem;
+    }
+
+    .profile-section form {
+      display: grid;
+      gap: 0.75rem;
+    }
+
+    label {
+      font-size: 0.85rem;
+      color: #374151;
+      display: block;
+      margin-bottom: 0.15rem;
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 0.55rem 0.7rem;
+      border-radius: 0.6rem;
+      border: 1px solid #d1d5db;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+      background-color: #ffffff;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: #f97316;
+      box-shadow: 0 0 0 1px #fed7aa;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.75rem;
+    }
+
+    .radio-row,
+    .checkbox-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem 1.1rem;
+      font-size: 0.85rem;
+    }
+
+    .radio-row label,
+    .checkbox-row label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      margin-bottom: 0;
+    }
+
+    .radio-row input,
+    .checkbox-row input {
+      width: auto;
+    }
+
+    .btn-primary {
+      margin-top: 0.5rem;
+      padding: 0.7rem 1.4rem;
+      border-radius: 999px;
+      border: none;
+      background: linear-gradient(135deg, #f97316, #ea580c);
+      color: #ffffff;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: transform 0.1s ease, box-shadow 0.1s ease;
+      width: fit-content;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 15px 25px -14px rgba(15,23,42,0.5);
+    }
+
+    .info-section {
+      border-left: 1px solid #e5e7eb;
+      padding-left: 1.5rem;
+    }
+
+    .info-section p {
+      font-size: 0.9rem;
+      color: #4b5563;
+      margin-bottom: 0.4rem;
+    }
+
+    .info-badge {
+      display: inline-flex;
+      padding: 0.15rem 0.6rem;
+      border-radius: 999px;
+      background-color: #ecfdf5;
+      color: #166534;
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-bottom: 0.6rem;
+    }
+
+    .info-list {
+      font-size: 0.85rem;
+      color: #6b7280;
+      margin-top: 0.4rem;
+    }
+
+    .info-list li {
+      margin-left: 1rem;
+      margin-bottom: 0.2rem;
+    }
+
+    @media (max-width: 900px) {
+      .dashboard-card {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .info-section {
+        border-left: none;
+        border-top: 1px solid #e5e7eb;
+        padding-left: 0;
+        padding-top: 1.25rem;
+      }
+    }
+
+    @media (max-width: 640px) {
+      body {
+        padding: 1rem;
+      }
+      .dashboard-card {
+        padding: 1.3rem 1.4rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-wrapper">
+    <div class="dashboard-card">
+      <div class="profile-section">
+        <header>
+          <div class="title-row">
+            <h1>Jugaad Dashboard</h1>
+            <span>Profile &amp; Jugaad details</span>
+          </div>
+          <p>Welcome to your profile. Fill in your details to start using Jugaad.</p>
+        </header>
+
+        <section>
+          <h2>Your profile</h2>
+          <form id="profile-form">
+            <div>
+              <label for="email">Email (read-only)</label>
+              <input id="email" name="email" type="email" readonly />
+            </div>
+
+            <div class="two-col">
+              <div>
+                <label for="name">Full name</label>
+                <input id="name" name="name" type="text" />
+              </div>
+              <div>
+                <label for="phone">Phone number</label>
+                <input id="phone" name="phone" type="tel" />
+              </div>
+            </div>
+
+            <div class="two-col">
+              <div>
+                <label for="age">Age</label>
+                <input id="age" name="age" type="number" min="14" />
+              </div>
+              <div>
+                <label>Age group</label>
+                <select id="ageGroup" name="ageGroup">
+                  <option value="">Select</option>
+                  <option value="children">Children (14–18)</option>
+                  <option value="adult">Adult (18–60)</option>
+                  <option value="retired">Retired (60+)</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label for="dob">Date of birth</label>
+              <input id="dob" name="dob" type="date" />
+            </div>
+
+            <div class="two-col">
+              <div>
+                <label for="country">Country</label>
+                <input id="country" name="country" type="text" />
+              </div>
+              <div>
+                <label for="state">State</label>
+                <input id="state" name="state" type="text" />
+              </div>
+            </div>
+
+            <div class="two-col">
+              <div>
+                <label for="city">City</label>
+                <input id="city" name="city" type="text" />
+              </div>
+              <div>
+                <label for="pincode">PIN code</label>
+                <input id="pincode" name="pincode" type="text" />
+              </div>
+            </div>
+
+            <div>
+              <label>Work as</label>
+              <div class="radio-row">
+                <label><input type="radio" name="role" value="helper" /> Helper</label>
+                <label><input type="radio" name="role" value="hirer" /> Hirer</label>
+              </div>
+            </div>
+
+            <div>
+              <label>Work options (choose any)</label>
+              <div class="checkbox-row">
+                <label><input type="checkbox" name="workTags" value="teaching" /> Teaching</label>
+                <label><input type="checkbox" name="workTags" value="child-care" /> Child care</label>
+                <label><input type="checkbox" name="workTags" value="events" /> Events / functions</label>
+                <label><input type="checkbox" name="workTags" value="cooking" /> Cooking</label>
+                <label><input type="checkbox" name="workTags" value="tech" /> Tech support / projects</label>
+              </div>
+            </div>
+
+            <button class="btn-primary" type="submit">Save profile</button>
+          </form>
+        </section>
+      </div>
+
+      <aside class="info-section">
+        <div class="info-badge">Jugaad by Aditya &amp; Manya</div>
+        <h2>Jugaad info</h2>
+        <p>Jugaad – [translate:चलो सबको करें आत्मनिर्भर].</p>
+        <p>Use your skills to help others as a Helper, or get work done as a Hirer in your community.</p>
+        <ul class="info-list">
+          <li>Children, adults, and retired people can all join.</li>
+          <li>Profile details help match the right work with the right person.</li>
+          <li>Your information is stored securely for testing in our system.</li>
+        </ul>
+      </aside>
+    </div>
+  </div>
+
+  <script>
+    function getEmailFromQuery() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get('email');
+    }
+
+    async function loadProfile(email) {
+      try {
+        const res = await fetch('/api/user?email=' + encodeURIComponent(email));
+        if (!res.ok) return;
+        const data = await res.json();
+        const u = data.user;
+        document.getElementById('email').value = u.email || email;
+        document.getElementById('name').value = u.name || '';
+        document.getElementById('phone').value = u.phone || '';
+        document.getElementById('age').value = u.age || '';
+        document.getElementById('ageGroup').value = u.ageGroup || '';
+        document.getElementById('dob').value = u.dob || '';
+        document.getElementById('country').value = u.country || '';
+        document.getElementById('state').value = u.state || '';
+        document.getElementById('city').value = u.city || '';
+        document.getElementById('pincode').value = u.pincode || '';
+
+        if (u.role) {
+          const roleRadio = document.querySelector(
+            'input[name="role"][value="' + u.role + '"]'
+          );
+          if (roleRadio) roleRadio.checked = true;
+        }
+
+        if (Array.isArray(u.workTags)) {
+          u.workTags.forEach((tag) => {
+            const cb = document.querySelector(
+              'input[name="workTags"][value="' + tag + '"]'
+            );
+            if (cb) cb.checked = true;
+          });
+        }
+      } catch (err) {
+        console.error('Error loading profile', err);
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const email = getEmailFromQuery();
+      if (!email) {
+        alert('No email found. Please login again.');
+        window.location.href = 'login.html';
+        return;
+      }
+      document.getElementById('email').value = email;
+      loadProfile(email);
+
+      document
+        .getElementById('profile-form')
+        .addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const form = e.target;
+          const formData = new FormData(form);
+          const workTags = formData.getAll('workTags');
+          formData.delete('workTags');
+          workTags.forEach((tag) => formData.append('workTags', tag));
+
+          try {
+            const res = await fetch('/api/profile', {
+              method: 'POST',
+              body: new URLSearchParams(formData)
+            });
+            const data = await res.json();
+            if (!res.ok) {
+              alert(data.message || 'Failed to save profile');
+              return;
+            }
+            alert('Profile saved. Your information is stored for testing.');
+          } catch (err) {
+            alert('Error saving profile.');
+          }
+        });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jugaad – Forgot Password</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background-color: #f3f4f6;
+      color: #111827;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    .auth-wrapper {
+      width: 100%;
+      max-width: 880px;
+      background-color: #ffffff;
+      border-radius: 1.25rem;
+      box-shadow: 0 24px 50px -30px rgba(15,23,42,0.8);
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      overflow: hidden;
+    }
+
+    .auth-side {
+      padding: 2rem 2.5rem;
+    }
+
+    .auth-brand {
+      font-size: 0.85rem;
+      color: #6b7280;
+      margin-bottom: 0.5rem;
+    }
+
+    .auth-brand a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .auth-title {
+      font-size: 1.8rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+    }
+
+    .auth-subtitle {
+      font-size: 0.95rem;
+      color: #4b5563;
+      margin-bottom: 1.5rem;
+    }
+
+    form {
+      display: grid;
+      gap: 0.9rem;
+    }
+
+    label {
+      font-size: 0.85rem;
+      color: #374151;
+      display: block;
+      margin-bottom: 0.2rem;
+    }
+
+    input {
+      width: 100%;
+      padding: 0.6rem 0.7rem;
+      border-radius: 0.55rem;
+      border: 1px solid #d1d5db;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    input:focus {
+      border-color: #f97316;
+      box-shadow: 0 0 0 1px #fed7aa;
+    }
+
+    .btn-primary {
+      margin-top: 0.75rem;
+      width: 100%;
+      padding: 0.7rem 1.2rem;
+      border-radius: 999px;
+      border: none;
+      background: linear-gradient(135deg, #f97316, #ea580c);
+      color: #ffffff;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: transform 0.1s ease, box-shadow 0.1s ease;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 15px 25px -14px rgba(15,23,42,0.5);
+    }
+
+    .otp-row {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+
+    .otp-row button {
+      padding: 0.55rem 0.9rem;
+      border-radius: 0.55rem;
+      border: 1px solid #d1d5db;
+      background-color: #ffffff;
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
+
+    .side-panel {
+      background: #0b1120;
+      color: #e5e7eb;
+      padding: 2rem 2.25rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .side-logo {
+      font-weight: 700;
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+    }
+
+    .side-tagline {
+      font-size: 0.9rem;
+      max-width: 260px;
+      color: #e5e7eb;
+    }
+
+    .side-quote {
+      font-size: 0.95rem;
+      font-style: italic;
+      margin-bottom: 0.75rem;
+      color: #f9fafb;
+    }
+
+    .side-meta {
+      font-size: 0.8rem;
+      color: #d1d5db;
+    }
+
+    @media (max-width: 800px) {
+      .auth-wrapper {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .side-panel {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="auth-wrapper">
+    <div class="auth-side">
+      <div class="auth-brand">
+        <a href="login.html">← Back to login</a>
+      </div>
+      <h1 class="auth-title">Reset your password</h1>
+      <p class="auth-subtitle">
+        Enter your email, get an OTP, and choose a new password.
+      </p>
+
+      <form id="reset-form" autocomplete="on">
+        <div>
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" required />
+        </div>
+
+        <div>
+          <label for="otp">OTP (sent to your email)</label>
+          <div class="otp-row">
+            <input id="otp" name="otp" type="text" minlength="4" maxlength="6" required />
+            <button id="get-otp-btn">Get OTP</button>
+          </div>
+        </div>
+
+        <div>
+          <label for="newPassword">New password</label>
+          <input id="newPassword" name="newPassword" type="password" required />
+        </div>
+
+        <button class="btn-primary" type="submit">Reset password</button>
+      </form>
+    </div>
+    <aside class="side-panel">
+      <div>
+        <div class="side-logo">Jugaad</div>
+        <p class="side-tagline">
+          चलो सबको करें आत्मनिर्भर – secure access with email OTP and passwords.
+        </p>
+      </div>
+      <div>
+        <p class="side-quote">
+          Forgot your password? Use a one-time code from your inbox to get back into your Jugaad account.
+        </p>
+        <p class="side-meta">
+          Email verification · No SMS needed · Easy reset flow.
+        </p>
+      </div>
+    </aside>
+  </div>
+
+  <script>
+    document.getElementById('get-otp-btn').addEventListener('click', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('email').value.trim();
+      if (!email) {
+        alert('Please enter your email first.');
+        return;
+      }
+      try {
+        const res = await fetch('/api/send-otp', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email })
+        });
+        const data = await res.json();
+        if (!res.ok) {
+          alert(data.message || 'Failed to send OTP');
+          return;
+        }
+        alert(data.message || 'OTP sent to your email');
+      } catch (err) {
+        alert('Error contacting server for OTP.');
+      }
+    });
+
+    document.getElementById('reset-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('email').value.trim();
+      const otp = document.getElementById('otp').value.trim();
+      const newPassword = document.getElementById('newPassword').value;
+
+      try {
+        const res = await fetch('/api/reset-password', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams({ email, otp, newPassword })
+        });
+        const data = await res.json();
+        if (!res.ok) {
+          alert(data.message || 'Reset failed');
+          return;
+        }
+        alert('Password reset successful. Please login.');
+        window.location.href = 'login.html';
+      } catch (err) {
+        alert('Error during reset.');
+      }
+    });
+  </script>
+</body>
+</html>

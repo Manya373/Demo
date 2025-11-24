@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jugaad – Empower Local Skills</title>
+  <style>
+    /* Global styles for  */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+      color: #111827;
+      background: radial-gradient(circle at top, #f973160f, transparent 55%),
+                  linear-gradient(to bottom, #f9fafb, #f3f4f6);
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    /* Layout helpers */
+    .container {
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 1.25rem;
+    }
+
+    /* Header & navigation */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background-color: #ffffffd9;
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem 0;
+    }
+
+    .logo {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .logo-title {
+      font-weight: 800;
+      letter-spacing: 0.03em;
+      font-size: 1.35rem;
+      color: #111827;
+    }
+
+    .logo-tagline {
+      font-size: 0.78rem;
+      color: #6b7280;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.25rem;
+      font-size: 0.95rem;
+      align-items: center;
+    }
+
+    .nav-links a {
+      padding: 0.25rem 0.5rem;
+      border-radius: 999px;
+      transition: background-color 0.2s ease, color 0.2s ease, transform 0.1s ease;
+    }
+
+    .nav-links a:hover {
+      background-color: #f3f4f6;
+      color: #111827;
+      transform: translateY(-1px);
+    }
+
+    .nav-cta {
+      padding: 0.4rem 0.9rem;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #f97316, #16a34a);
+      color: #ffffff;
+      font-weight: 600;
+      box-shadow: 0 12px 22px -12px rgba(22,163,74,0.55);
+    }
+
+    /* Hero section */
+    .hero {
+      padding: 3.5rem 0 2.6rem 0;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1.5fr);
+      gap: 2.25rem;
+      align-items: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.3rem 0.85rem;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #ecfdf5, #fefce8);
+      color: #166534;
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-bottom: 0.85rem;
+      border: 1px solid #bbf7d0;
+    }
+
+    .hero-badge-dot {
+      width: 0.45rem;
+      height: 0.45rem;
+      border-radius: 999px;
+      background: radial-gradient(circle, #22c55e, #15803d);
+      box-shadow: 0 0 0 4px #bbf7d052;
+    }
+
+    .hero-title {
+      font-size: clamp(2.2rem, 4.2vw, 3rem);
+      font-weight: 900;
+      color: #0f172a;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.6rem;
+    }
+
+    .hero-highlight {
+      background: linear-gradient(120deg, #f97316, #fb7185, #22c55e);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 1rem;
+      color: #4b5563;
+      margin-bottom: 1.3rem;
+      max-width: 32rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin-bottom: 1rem;
+    }
+
+    .btn-primary {
+      padding: 0.75rem 1.5rem;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #f97316, #ea580c);
+      color: #ffffff;
+      font-weight: 600;
+      font-size: 0.95rem;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.1s ease, box-shadow 0.1s ease;
+      display: inline-block;
+      box-shadow: 0 18px 32px -18px rgba(249,115,22,0.6);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 20px 35px -20px rgba(249,115,22,0.7);
+    }
+
+    .btn-secondary {
+      padding: 0.75rem 1.35rem;
+      border-radius: 999px;
+      border: 1px solid #d1d5db;
+      background-color: #ffffff;
+      color: #111827;
+      font-weight: 500;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: background-color 0.15s ease, transform 0.1s ease, box-shadow 0.1s ease;
+      display: inline-block;
+    }
+
+    .btn-secondary:hover {
+      background-color: #f3f4f6;
+      transform: translateY(-1px);
+      box-shadow: 0 12px 22px -16px rgba(15,23,42,0.4);
+    }
+
+    .hero-meta {
+      font-size: 0.8rem;
+      color: #6b7280;
+    }
+
+    /* Analytics bar */
+    .analytics-bar {
+      margin-top: 0.85rem;
+      background: radial-gradient(circle at top left, #f973160b, transparent 60%),
+                  #ffffff;
+      border-radius: 0.9rem;
+      border: 1px solid #e5e7eb;
+      padding: 0.65rem 0.9rem;
+      font-size: 0.82rem;
+      color: #374151;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      align-items: center;
+      box-shadow: 0 14px 30px -22px rgba(15,23,42,0.6);
+    }
+
+    .analytics-label {
+      font-weight: 600;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: #6b7280;
+      margin-right: 0.2rem;
+    }
+
+    .analytics-line {
+      display: inline-flex;
+      flex-wrap: wrap;
+      gap: 0.25rem;
+      align-items: baseline;
+    }
+
+    .analytics-line .value {
+      font-weight: 800;
+      color: #111827;
+      font-size: 0.95rem;
+      margin-right: 0.1rem;
+    }
+
+    /* Hero side card */
+    .hero-card {
+      background: radial-gradient(circle at top, #0f172a, #020617);
+      border-radius: 1.4rem;
+      border: 1px solid #1f2937;
+      padding: 1.7rem 1.5rem 1.6rem;
+      box-shadow: 0 26px 45px -28px rgba(15,23,42,1);
+      color: #e5e7eb;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top right, #22c55e22, transparent 55%);
+      pointer-events: none;
+    }
+
+    .hero-card-title {
+      font-weight: 700;
+      font-size: 1.02rem;
+      margin-bottom: 0.8rem;
+      color: #f9fafb;
+    }
+
+    .hero-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-bottom: 1rem;
+    }
+
+    .pill {
+      padding: 0.28rem 0.75rem;
+      border-radius: 999px;
+      background-color: #020617;
+      border: 1px solid #1e293b;
+      color: #e5e7eb;
+      font-size: 0.76rem;
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.75rem;
+      font-size: 0.78rem;
+      color: #9ca3af;
+      margin-top: 0.2rem;
+    }
+
+    .hero-stat-num {
+      font-weight: 800;
+      color: #f9fafb;
+      font-size: 1.15rem;
+      display: block;
+      margin-bottom: 0.05rem;
+    }
+
+    .hero-stat-label {
+      font-size: 0.75rem;
+    }
+
+    /* Section base */
+    section {
+      padding: 2.75rem 0;
+      border-top: 1px solid #e5e7eb;
+      background-color: #ffffff;
+    }
+
+    section:nth-of-type(even) {
+      background-color: #f9fafb;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 1.7rem;
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 0.4rem;
+    }
+
+    .section-subtitle {
+      font-size: 0.95rem;
+      color: #6b7280;
+      max-width: 550px;
+      margin: 0 auto;
+    }
+
+    /* About */
+    .about-text {
+      max-width: 800px;
+      margin: 0.5rem auto 0;
+      font-size: 0.98rem;
+      color: #4b5563;
+    }
+
+    /* Age groups */
+    .age-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.25rem;
+    }
+
+    .age-card {
+      background-color: #ffffff;
+      border-radius: 1rem;
+      padding: 1.25rem;
+      border: 1px solid #e5e7eb;
+    }
+
+    .age-label {
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+      color: #111827;
+    }
+
+    .age-range {
+      font-size: 0.85rem;
+      color: #6b7280;
+      margin-bottom: 0.5rem;
+    }
+
+    .age-desc {
+      font-size: 0.9rem;
+      color: #4b5563;
+    }
+
+    /* How it works */
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1rem;
+      font-size: 0.9rem;
+    }
+
+    .step {
+      background-color: #ffffff;
+      border-radius: 0.9rem;
+      padding: 1rem;
+      border: 1
+      px solid #e5e7eb;
+    }
+
+    .step-num {
+      width: 1.5rem;
+      height: 1.5rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      background-color: #f97316;
+      color: #ffffff;
+      font-size: 0.8rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .step-title {
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+      color: #111827;
+    }
+
+    /* Benefits */
+    .benefits {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+      font-size: 0.9rem;
+    }
+
+    .benefit {
+      background-color: #ecfdf5;
+      border-radius: 0.9rem;
+      padding: 1rem;
+      border: 1px solid #bbf7d0;
+      color: #14532d;
+    }
+
+    .benefit-title {
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    /* Testimonial */
+    .testimonial {
+      max-width: 700px;
+      margin: 0 auto;
+      font-size: 0.95rem;
+      color: #4b5563;
+      background-color: #ffffff;
+      padding: 1.5rem 1.75rem;
+      border-radius: 1.25rem;
+      border: 1px solid #e5e7eb;
+      box-shadow: 0 15px 25px -18px rgba(15,23,42,0.4);
+    }
+
+    .testimonial-quote {
+      font-style: italic;
+      margin-bottom: 0.75rem;
+    }
+
+    .testimonial-author {
+      font-weight: 600;
+      color: #111827;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid #e5e7eb;
+      background-color: #ffffff;
+    }
+
+    .footer-inner {
+      padding: 1.5rem 0;
+      font-size: 0.85rem;
+      color: #6b7280;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .footer-links a {
+      color: #6b7280;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .hero-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .steps {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .age-grid,
+      .benefits {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .nav-links {
+        display: none;
+      }
+
+      .hero {
+        padding-top: 2.5rem;
+      }
+
+      .steps,
+      .age-grid,
+      .benefits {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .footer-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header / Nav -->
+  <header>
+    <div class="container nav">
+      <div class="logo">
+        <span class="logo-title">Jugaad</span>
+        <span class="logo-tagline">By Aditya &amp; Manya – चलो सबको करें आत्मनिर्भर</span>
+      </div>
+      <nav class="nav-links">
+        <a href="#about">About</a>
+        <a href="#ages">Age Groups</a>
+        <a href="#how">How It Works</a>
+        <a href="#benefits">Benefits</a>
+        <a href="login.html">Login</a>
+        <a href="signup.html" class="nav-cta">Join Jugaad</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <main>
+    <section class="hero" id="top">
+      <div class="container hero-grid">
+        <div>
+          <div class="hero-badge">
+            <span class="hero-badge-dot"></span>
+            <span>Live beta · Local work · Real impact</span>
+          </div>
+          <h1 class="hero-title">
+            Empower local skills.
+            <span class="hero-highlight">Empower your community.</span>
+          </h1>
+          <p class="hero-subtitle">
+            Jugaad connects neighbours who can help with those “small but important” tasks –
+            projects, teaching, events and home support – so no skill goes to waste in your city.
+          </p>
+          <div class="hero-actions" id="join">
+            <a href="signup.html" class="btn-primary">I want to earn as Helper</a>
+            <a href="signup.html" class="btn-secondary">I need help as Hirer</a>
+          </div>
+          <p class="hero-meta">
+            For ages 14+ · Flexible timings · Start with just one task and grow as you gain trust.
+          </p>
+
+          <!-- Live analytics bar -->
+          <div class="analytics-bar" id="analytics-bar">
+            <span class="analytics-label">Live Jugaad numbers</span>
+            <span class="analytics-line">
+              <span class="value" id="stat-total">0</span> people registered ·
+              <span class="value" id="stat-helpers">0</span> helpers ready ·
+              <span class="value" id="stat-hirers">0</span> hirers exploring ·
+              <span class="value" id="stat-ready">0</span> profiles completed
+            </span>
+          </div>
+        </div>
+
+        <aside class="hero-card">
+          <h2 class="hero-card-title">Who can join Jugaad?</h2>
+          <div class="hero-pills">
+            <span class="pill">Students · Project &amp; tech help</span>
+            <span class="pill">Homemakers · Cooking &amp; care</span>
+            <span class="pill">Working adults · Weekend gigs</span>
+            <span class="pill">Retired · Teaching &amp; guidance</span>
+            <span class="pill">Local events · Extra hands</span>
+          </div>
+          <div class="hero-stats">
+            <div>
+              <span class="hero-stat-num">3</span>
+              <span class="hero-stat-label">Age groups we support</span>
+            </div>
+            <div>
+              <span class="hero-stat-num">2</span>
+              <span class="hero-stat-label">Ways to join – Helper or Hirer</span>
+            </div>
+            <div>
+              <span class="hero-stat-num">∞</span>
+              <span class="hero-stat-label">Everyday “jugaad” possibilities</span>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section id="about">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">What is Jugaad?</h2>
+          <p class="section-subtitle">
+            A simple way to turn everyday skills into income and to find trusted local help when you need it.
+          </p>
+        </div>
+        <p class="about-text">
+          Jugaad is a community platform where people of all ages can register either as Helpers to offer their
+          time and skills, or as Hirers to request help for tasks like teaching, projects, cooking for small
+          gatherings, or child care.
+        </p>
+        <p class="about-text">
+          Not everyone has a formal certification, but many people still know how to do the work well. Jugaad
+          gives them a chance to show what they can do and earn fairly, while nearby families and individuals
+          get affordable and reliable help.
+        </p>
+      </div>
+    </section>
+
+    <!-- Age groups -->
+    <section id="ages">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Three age groups. One community.</h2>
+          <p class="section-subtitle">
+            Clear groups make it easier to match the right work with the right person, while keeping things safe and transparent.
+          </p>
+        </div>
+
+        <div class="age-grid">
+          <div class="age-card">
+            <h3 class="age-label">Children &amp; Teens</h3>
+            <p class="age-range">14 – 18 years</p>
+            <p class="age-desc">
+              Help with projects, basic tech tasks, digital support, school assignment assistance, and simple
+              errands under guidance from parents or guardians.
+            </p>
+          </div>
+          <div class="age-card">
+            <h3 class="age-label">Adults</h3>
+            <p class="age-range">18 – 60 years</p>
+            <p class="age-desc">
+              Take up a wide range of tasks – from event support and household work to delivery, tutoring, and
+              everyday “jugaad” work in your locality.
+            </p>
+          </div>
+          <div class="age-card">
+            <h3 class="age-label">Retired &amp; Seniors</h3>
+            <p class="age-range">60+ years</p>
+            <p class="age-desc">
+              Share your experience through teaching, mentoring, or guiding younger people, and offer light
+              support for small functions or home activities.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- How it works -->
+    <section id="how">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">How Jugaad works</h2>
+          <p class="section-subtitle">
+            A simple four-step flow so that anyone who thinks “I can do it” can actually get started.
+          </p>
+        </div>
+
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-title">Create your account</div>
+            <p>
+              Enter your name, age, phone number, and email so we can verify you and place you in the right
+              age group.
+            </p>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-title">Choose your role</div>
+            <p>
+              Decide whether you want to work as a Helper doing tasks, or act as a Hirer who posts tasks and
+              finds the right people.
+            </p>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-title">Post or pick tasks</div>
+            <p>
+              Helpers browse open tasks nearby, and Hirers clearly describe what work is needed, where, and
+              by when.
+            </p>
+          </div>
+          <div class="step">
+            <div class="step-num">4</div>
+            <div class="step-title">Connect and complete</div>
+            <p>
+              Coordinate safely through the platform, complete the work, and build a trusted network inside
+              your own city or town.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Benefits -->
+    <section id="benefits">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Why people use Jugaad</h2>
+          <p class="section-subtitle">
+            Designed for small cities and towns where skills are everywhere, but opportunities are not.
+          </p>
+        </div>
+
+        <div class="benefits">
+          <div class="benefit">
+            <div class="benefit-title">Affordable, nearby help</div>
+            <p>
+              Hirers can find capable people who live close by, at fair prices that work for both sides.
+            </p>
+          </div>
+          <div class="benefit">
+            <div class="benefit-title">Real work, real income</div>
+            <p>
+              Helpers can convert their everyday skills into meaningful pocket money or side income.
+            </p>
+          </div>
+          <div class="benefit">
+            <div class="benefit-title">Trusted community</div>
+            <p>
+              Age groups, basic verification, and local focus help build a safer, more reliable network.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonial -->
+    <section id="story">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">A small story of Jugaad</h2>
+          <p class="section-subtitle">
+            This is the kind of change the platform is built to support.
+          </p>
+        </div>
+
+        <div class="testimonial">
+          <p class="testimonial-quote">
+            “We needed someone to help our child with a science project and to watch over the kids during a
+            small family get-together. Through Jugaad, we found a college student nearby. It was affordable,
+            helpful, and gave that student a chance to earn with dignity.”
+          </p>
+          <p class="testimonial-author">– A Jugaad family, small town India</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container footer-inner">
+      <span>© 2025 Jugaad by Aditya &amp; Manya. All rights reserved.</span>
+      <div class="footer-links">
+        <a href="#top">Back to top</a>
+        <a href="#">Contact</a>
+        <a href="#">FAQs</a>
+        <a href="#">Privacy Policy</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Live analytics script with animated counters -->
+  <script>
+    function animateValue(el, newValue, duration) {
+      const startValue = parseInt(el.textContent.replace(/\D/g, ''), 10) || 0;
+      const endValue = Number(newValue) || 0;
+      if (startValue === endValue) return;
+
+      const startTime = performance.now();
+      function frame(now) {
+        const progress = Math.min((now - startTime) / duration, 1);
+        const current = Math.round(startValue + (endValue - startValue) * progress);
+        el.textContent = current;
+        if (progress < 1) {
+          requestAnimationFrame(frame);
+        }
+      }
+      requestAnimationFrame(frame);
+    }
+
+    async function loadStats() {
+      try {
+        const res = await fetch('/api/stats');
+        if (!res.ok) return;
+        const s = await res.json();
+
+        animateValue(document.getElementById('stat-total'), s.totalUsers ?? 0, 800);
+        animateValue(document.getElementById('stat-helpers'), s.helpers ?? 0, 800);
+        animateValue(document.getElementById('stat-hirers'), s.hirers ?? 0, 800);
+        animateValue(document.getElementById('stat-ready'), s.readyToServe ?? 0, 800);
+      } catch (e) {
+        console.error('Error loading stats', e);
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      loadStats();
+      setInterval(loadStats, 10000);
+    });
+  </script>
+</body>
+</html>
