@@ -40,17 +40,23 @@
     .title-row {
       display: flex;
       justify-content: space-between;
-      align-items: baseline;
+      align-items: center;
       flex-wrap: wrap;
       gap: 0.75rem;
     }
 
-    .title-row h1 {
+    .title-text {
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+    }
+
+    .title-text h1 {
       font-size: 1.8rem;
       font-weight: 800;
     }
 
-    .title-row span {
+    .title-text span {
       font-size: 0.85rem;
       color: #6b7280;
     }
@@ -144,6 +150,13 @@
       box-shadow: 0 15px 25px -14px rgba(15,23,42,0.5);
     }
 
+    /* small variant for header logout */
+    .btn-primary.btn-small {
+      padding: 0.4rem 0.9rem;
+      font-size: 0.8rem;
+      margin-top: 0; /* so it aligns nicely in header */
+    }
+
     .info-section {
       border-left: 1px solid #e5e7eb;
       padding-left: 1.5rem;
@@ -205,8 +218,11 @@
       <div class="profile-section">
         <header>
           <div class="title-row">
-            <h1>Jugaad Dashboard</h1>
-            <span>Profile &amp; Jugaad details</span>
+            <div class="title-text">
+              <h1>Jugaad Dashboard</h1>
+              <span>Profile &amp; Jugaad details</span>
+            </div>
+            <button type="button" class="btn-primary btn-small" id="logout-btn">Logout</button>
           </div>
           <p>Welcome to your profile. Fill in your details to start using Jugaad.</p>
         </header>
@@ -363,6 +379,14 @@
       }
       document.getElementById('email').value = email;
       loadProfile(email);
+
+      // Logout handler
+      const logoutBtn = document.getElementById('logout-btn');
+      if (logoutBtn) {
+        logoutBtn.addEventListener('click', () => {
+          window.location.href = 'index.html';
+        });
+      }
 
       document
         .getElementById('profile-form')
