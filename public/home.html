@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jugaad – Home</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background-color: #f3f4f6;
+      color: #111827;
+      min-height: 100vh;
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
+      padding: 2rem 1.5rem;
+    }
+
+    .page-wrapper {
+      width: 100%;
+      max-width: 1200px;
+    }
+
+    /* Top nav */
+    .top-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.9rem;
+      padding: 0 0.25rem;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .logo-title {
+      font-weight: 800;
+      font-size: 1.2rem;
+    }
+
+    .logo-tagline {
+      font-size: 0.8rem;
+      color: #6b7280;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 0.9rem;
+      font-size: 0.9rem;
+      align-items: center;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #4b5563;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      transition: background-color 0.15s ease, color 0.15s ease, transform 0.1s ease;
+    }
+
+    .nav-links a:hover {
+      background-color: #e5e7eb;
+      color: #111827;
+      transform: translateY(-1px);
+    }
+
+    .home-layout {
+      background-color: #ffffff;
+      border-radius: 1.25rem;
+      box-shadow: 0 24px 50px -30px rgba(15,23,42,0.8);
+      padding: 1.75rem 2rem;
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.5fr);
+      gap: 1.75rem;
+      min-height: calc(100vh - 4rem);
+    }
+
+    header {
+      margin-bottom: 1rem;
+    }
+
+    .title-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .title-text {
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+    }
+
+    .title-text h1 {
+      font-size: 1.7rem;
+      font-weight: 800;
+    }
+
+    .title-text span {
+      font-size: 0.85rem;
+      color: #6b7280;
+    }
+
+    header p {
+      font-size: 0.9rem;
+      color: #4b5563;
+      margin-top: 0.3rem;
+    }
+
+    .btn-primary {
+      padding: 0.5rem 1.1rem;
+      border-radius: 999px;
+      border: 1px solid #f97316;
+      background-color: #ffffff;
+      color: #f97316;
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: background-color 0.1s ease, color 0.1s ease,
+                  box-shadow 0.1s ease, transform 0.1s ease;
+      width: fit-content;
+    }
+
+    .btn-primary:hover {
+      background-color: #fff7ed;
+      box-shadow: 0 10px 18px -14px rgba(249,115,22,0.6);
+      transform: translateY(-1px);
+    }
+
+    .btn-small {
+      padding: 0.35rem 0.8rem;
+      font-size: 0.78rem;
+    }
+
+    .btn-secondary {
+      padding: 0.45rem 0.95rem;
+      border-radius: 999px;
+      border: 1px solid #d1d5db;
+      background-color: #ffffff;
+      color: #111827;
+      font-weight: 500;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: background-color 0.1s ease, box-shadow 0.1s ease, transform 0.1s ease;
+      width: fit-content;
+    }
+
+    .btn-secondary:hover {
+      background-color: #f3f4f6;
+      transform: translateY(-1px);
+      box-shadow: 0 12px 22px -16px rgba(15,23,42,0.4);
+    }
+
+    .profile-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      background-color: #f3f4ff;
+      color: #4338ca;
+      font-size: 0.8rem;
+    }
+
+    .profile-pill-name {
+      font-weight: 600;
+    }
+
+    .profile-actions {
+      display: flex;
+      gap: 0.4rem;
+      align-items: center;
+    }
+
+    .left-panel {
+      border-right: 1px solid #e5e7eb;
+      padding-right: 1.5rem;
+    }
+
+    .intro-card {
+      background: linear-gradient(135deg, #fef3c7, #fffbeb);
+      border-radius: 0.9rem;
+      padding: 0.9rem 1rem;
+      border: 1px solid #fde68a;
+      margin-bottom: 1rem;
+    }
+
+    .intro-card h2 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+    }
+
+    .intro-card p {
+      font-size: 0.85rem;
+      color: #4b5563;
+      margin-bottom: 0.25rem;
+    }
+
+    .highlight {
+      font-weight: 600;
+      color: #b45309;
+    }
+
+    .stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin-top: 0.5rem;
+      font-size: 0.8rem;
+      color: #6b7280;
+    }
+
+    .stat-pill {
+      padding: 0.25rem 0.6rem;
+      border-radius: 999px;
+      background-color: #f3f4ff;
+      color: #4338ca;
+      font-weight: 500;
+    }
+
+    .right-panel h3 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 0.7rem;
+    }
+
+    .card {
+      background-color: #ffffff;
+      border-radius: 0.9rem;
+      padding: 0.8rem 0.9rem;
+      border: 1px solid #e5e7eb;
+      font-size: 0.85rem;
+    }
+
+    .card h4 {
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+      font-size: 0.9rem;
+    }
+
+    .card p {
+      margin-bottom: 0.2rem;
+      color: #4b5563;
+    }
+
+    .tag-chip {
+      display: inline-flex;
+      padding: 0.1rem 0.45rem;
+      border-radius: 999px;
+      background-color: #eef2ff;
+      color: #4338ca;
+      font-size: 0.7rem;
+      font-weight: 500;
+      margin-right: 0.2rem;
+      margin-top: 0.1rem;
+    }
+
+    .empty-state {
+      font-size: 0.85rem;
+      color: #6b7280;
+    }
+
+    @media (max-width: 900px) {
+      .home-layout {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .left-panel {
+        border-right: none;
+        border-bottom: 1px solid #e5e7eb;
+        padding-right: 0;
+        padding-bottom: 1.25rem;
+        margin-bottom: 1rem;
+      }
+    }
+
+    @media (max-width: 640px) {
+      body {
+        padding: 1rem;
+      }
+      .home-layout {
+        padding: 1.3rem 1.4rem;
+      }
+      .nav-links {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-wrapper">
+    <!-- Top navigation -->
+    <div class="top-nav">
+      <div class="nav-left">
+        <div>
+          <div class="logo-title">Jugaad</div>
+          <div class="logo-tagline">चलो सबको करें आत्मनिर्भर</div>
+        </div>
+      </div>
+      <div class="nav-links">
+        <a href="index.html#about">About</a>
+        <a href="guide.html">Guide</a>
+        <a href="#community">Jugaad community data</a>
+      </div>
+      <div class="profile-actions">
+        <div class="profile-pill">
+          <span class="profile-pill-name" id="nav-name">Loading…</span>
+          <span>·</span>
+          <button class="btn-primary btn-small" type="button" id="btn-dashboard-top">View profile</button>
+        </div>
+        <button class="btn-primary btn-small" type="button" id="btn-logout">Logout</button>
+      </div>
+    </div>
+
+    <div class="home-layout">
+      <!-- LEFT: intro, role, actions -->
+      <div class="left-panel">
+        <header>
+          <div class="title-row">
+            <div class="title-text">
+              <h1>Jugaad Home</h1>
+              <span id="subheading">Loading your profile...</span>
+            </div>
+          </div>
+          <p id="welcome-text">...</p>
+        </header>
+
+        <section class="intro-card" id="intro-card">
+          <!-- Filled by JS based on role -->
+        </section>
+
+        <section id="community">
+          <div class="stats" id="stats-row">
+            <span class="stat-pill">Safe · Local · Age-based groups</span>
+            <span class="stat-pill">Skills over certificates</span>
+          </div>
+        </section>
+      </div>
+
+      <!-- RIGHT: jobs or helpers list -->
+      <div class="right-panel">
+        <h3 id="list-title">Loading...</h
+        <h3 id="list-title">Loading...</h3>
+        <div id="cards-container">
+          <!-- Cards injected here -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function getEmailFromQuery() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get('email');
+    }
+
+    // Fake data for now
+    const ALL_JOBS = [
+  { title: 'Science project help (class 8)', tag: 'teaching', city: 'Nearby', money: '₹300', rating: 4.8, distance: '1.2 km' },
+  { title: 'Birthday function support',      tag: 'events',   city: 'Nearby', money: '₹600', rating: 4.7, distance: '2.0 km' },
+  { title: 'Basic laptop + phone setup',    tag: 'tech',     city: 'Nearby', money: '₹400', rating: 4.9, distance: '0.8 km' },
+  { title: 'Evening child care, 2 hours',   tag: 'child-care', city: 'Nearby', money: '₹500', rating: 4.6, distance: '1.5 km' },
+  { title: 'Home-style dinner for 4 people', tag: 'cooking', city: 'Nearby', money: '₹550', rating: 4.8, distance: '2.3 km' },
+  { title: 'Maths tuition · class 6–7',      tag: 'teaching', city: 'Nearby', money: '₹350', rating: 4.7, distance: '1.8 km' },
+  { title: 'Weekend event helper',           tag: 'events',   city: 'Nearby', money: '₹700', rating: 4.6, distance: '3.0 km' },
+  { title: 'Wi‑Fi + printer setup',          tag: 'tech',     city: 'Nearby', money: '₹350', rating: 4.8, distance: '0.9 km' }
+];
+
+const ALL_HELPERS = [
+  { name: 'Riya · College student',      tags: ['teaching', 'tech'], rating: 4.9, city: 'Nearby' },
+  { name: 'Amit · Working professional', tags: ['events', 'tech'],   rating: 4.7, city: 'Nearby' },
+  { name: 'Meera · Homemaker',           tags: ['cooking', 'child-care'], rating: 4.8, city: 'Nearby' },
+  { name: 'Sharma ji · Retired teacher', tags: ['teaching'],         rating: 4.9, city: 'Nearby' },
+  { name: 'Kunal · Engineering student', tags: ['tech', 'events'],   rating: 4.6, city: 'Nearby' },
+  { name: 'Anita · Home tutor',          tags: ['teaching'],         rating: 4.7, city: 'Nearby' }
+];
+
+
+    function renderHelperHome(user) {
+      const name = user.name || user.email;
+      const workTags = Array.isArray(user.workTags) ? user.workTags : (user.workTags ? [user.workTags] : []);
+
+      document.getElementById('subheading').textContent =
+        'You are signed in as Helper';
+      document.getElementById('welcome-text').textContent =
+        'Hi ' + name + ', here are jobs near you that match your skills.';
+      document.getElementById('nav-name').textContent = name;
+
+      const intro = document.getElementById('intro-card');
+      intro.innerHTML = `
+        <h2>Start working as a Helper</h2>
+        <p>Pick small tasks that fit your time – from teaching and tech help to events and home support.</p>
+        <p>Your starting rating: <span class="highlight">⭐ 4.5 · New Helper</span></p>
+        <p>Selected interests: ${
+          workTags.length
+            ? workTags.map(t => '<span class="tag-chip">' + t + '</span>').join(' ')
+            : 'No interests selected yet'
+        }</p>
+        <button class="btn-primary btn-small" type="button" id="btn-search-jobs">Search all jobs</button>
+        
+      `;
+   
+
+
+      document.getElementById('list-title').textContent = 'Jobs near you';
+
+      const filtered = workTags.length
+        ? ALL_JOBS.filter(j => workTags.includes(j.tag))
+        : ALL_JOBS;
+
+      const cardsContainer = document.getElementById('cards-container');
+      if (!filtered.length) {
+        cardsContainer.innerHTML = '<p class="empty-state">No matching jobs yet. Try selecting more work options in your profile.</p>';
+      } else {
+        cardsContainer.innerHTML = `
+          <div class="cards">
+            ${filtered.map(j => `
+              <article class="card">
+                <h4>${j.title}</h4>
+                <p>${j.city} · ${j.distance}</p>
+                <p>Pay: ${j.money} per task</p>
+                <p>Category: <span class="tag-chip">${j.tag}</span></p>
+                <p>Hirer rating: ⭐ ${j.rating}</p>
+                <button class="btn-primary btn-small" type="button">View details</button>
+              </article>
+            `).join('')}
+          </div>
+        `;
+      }
+
+     const btnSearch = document.getElementById('btn-search-jobs');
+if (btnSearch) {
+  btnSearch.addEventListener('click', () => {
+    window.location.href = 'jobs.html?email=' + encodeURIComponent(user.email);
+  });
+}}
+
+
+    function renderHirerHome(user) {
+      const name = user.name || user.email;
+      const workTags = Array.isArray(user.workTags) ? user.workTags : (user.workTags ? [user.workTags] : []);
+
+      document.getElementById('subheading').textContent =
+        'You are signed in as Hirer';
+      document.getElementById('welcome-text').textContent =
+        'Hi ' + name + ', post jobs and pick Helpers you trust.';
+      document.getElementById('nav-name').textContent = name;
+
+      const intro = document.getElementById('intro-card');
+      intro.innerHTML = `
+        <h2>Post your first Jugaad job</h2>
+        <p>Describe what you need help with – teaching, cooking, events, child care or tech support – and we show you suitable Helpers.</p>
+        <p>Your hirer profile rating: <span class="highlight">⭐ 4.7 · Safe & trusted</span></p>
+        <p>Preferred work categories: ${
+          workTags.length
+            ? workTags.map(t => '<span class="tag-chip">' + t + '</span>').join(' ')
+            : 'Not set yet'
+        }</p>
+        <button class="btn-primary btn-small" type="button" id="btn-post-job">Post a new job</button>
+      `;
+
+      document.getElementById('list-title').textContent =
+        'People who can help you';
+
+      const filteredHelpers = workTags.length
+        ? ALL_HELPERS.filter(h => h.tags.some(t => workTags.includes(t)))
+        : ALL_HELPERS;
+
+      const cardsContainer = document.getElementById('cards-container');
+      if (!filteredHelpers.length) {
+        cardsContainer.innerHTML = '<p class="empty-state">No matching Helpers yet. Try selecting more work options in your profile.</p>';
+      } else {
+        cardsContainer.innerHTML = `
+          <div class="cards">
+            ${filteredHelpers.map(h => `
+              <article class="card">
+                <h4>${h.name}</h4>
+                <p>${h.city}</p>
+                <p>
+                  Skills:
+                  ${h.tags.map(t => '<span class="tag-chip">' + t + '</span>').join(' ')}
+                </p>
+                <p>Rating: ⭐ ${h.rating}</p>
+                <button class="btn-secondary btn-small" type="button">View profile</button>
+              </article>
+            `).join('')}
+          </div>
+        `;
+      }
+const btnPost = document.getElementById('btn-post-job');
+if (btnPost) {
+  btnPost.addEventListener('click', () => {
+    window.location.href = 'post-job.html?email=' + encodeURIComponent(user.email);
+  });
+}}
+
+    function renderNoRole(user, emailFallback) {
+      const name = user.name || user.email || emailFallback;
+      document.getElementById('subheading').textContent =
+        'Complete your profile';
+      document.getElementById('welcome-text').textContent =
+        'Hi ' + name + ', please select whether you are a Helper or Hirer in your profile.';
+      document.getElementById('nav-name').textContent = name;
+
+      const intro = document.getElementById('intro-card');
+      intro.innerHTML = `
+        <h2>Choose your Jugaad role</h2>
+        <p>You have not selected <span class="highlight">Helper</span> or <span class="highlight">Hirer</span> yet.</p>
+        <p>Go back to your dashboard, pick a role and work options so we can show the right home page for you.</p>
+      `;
+
+      document.getElementById('list-title').textContent = 'Nothing to show yet';
+      document.getElementById('cards-container').innerHTML =
+        '<p class="empty-state">Once you set your role, jobs or helpers will appear here.</p>';
+    }
+
+    async function loadUserAndRender(email) {
+      try {
+        const res = await fetch('/api/user?email=' + encodeURIComponent(email));
+        if (!res.ok) {
+          alert('Could not load your profile. Please login again.');
+          window.location.href = 'login.html';
+          return;
+        }
+        const data = await res.json();
+        const user = data.user || {};
+
+        document.getElementById('welcome-text').textContent =
+          'Welcome back, ' + (user.name || user.email || email) + '.';
+
+        if (user.role === 'helper') {
+          renderHelperHome(user);
+        } else if (user.role === 'hirer') {
+          renderHirerHome(user);
+        } else {
+          renderNoRole(user, email);
+        }
+      } catch (err) {
+        console.error('Error loading user for home', err);
+        alert('Error loading your home. Please try again.');
+      }
+    }
+
+    async function loadStatsIntoCommunity() {
+  try {
+    const res = await fetch('/api/stats');
+    if (!res.ok) return;
+    const s = await res.json();
+
+    const row = document.getElementById('stats-row');
+    if (!row) return;
+
+    row.innerHTML = `
+      <span class="stat-pill">${s.totalUsers ?? 0} people on Jugaad</span>
+      <span class="stat-pill">${s.helpers ?? 0} Helpers ready</span>
+      <span class="stat-pill">${s.hirers ?? 0} Hirers exploring</span>
+      <span class="stat-pill">${s.readyToServe ?? 0} profiles completed</span>
+    `;
+  } catch (e) {
+    console.error('Error loading stats for community section', e);
+  }
+}
+
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const email = getEmailFromQuery();
+      if (!email) {
+        alert('No email found. Please login again.');
+        window.location.href = 'login.html';
+        return;
+      }
+
+      // Edit profile buttons => dashboard
+      const btnDashboardTop = document.getElementById('btn-dashboard-top');
+      if (btnDashboardTop) {
+        btnDashboardTop.addEventListener('click', () => {
+          window.location.href = 'dashboard.html?email=' + encodeURIComponent(email);
+        });
+      }
+
+      // Logout
+      const btnLogout = document.getElementById('btn-logout');
+      if (btnLogout) {
+        btnLogout.addEventListener('click', () => {
+          window.location.href = 'index.html';
+        });
+      }
+ loadStatsIntoCommunity();  
+      loadUserAndRender(email);
+    });
+  </script>
+</body>
+</html>

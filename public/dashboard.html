@@ -327,93 +327,95 @@
     </div>
   </div>
 
-  <script>
-    function getEmailFromQuery() {
-      const params = new URLSearchParams(window.location.search);
-      return params.get('email');
-    }
+ <script>
+  function getEmailFromQuery() {
+    const params = new URLSearchParams(window.location.search);
+    return params.get('email');
+  }
 
-    async function loadProfile(email) {
-      try {
-        const res = await fetch('/api/user?email=' + encodeURIComponent(email));
-        if (!res.ok) return;
-        const data = await res.json();
-        const u = data.user;
-        document.getElementById('email').value = u.email || email;
-        document.getElementById('name').value = u.name || '';
-        document.getElementById('phone').value = u.phone || '';
-        document.getElementById('age').value = u.age || '';
-        document.getElementById('ageGroup').value = u.ageGroup || '';
-        document.getElementById('dob').value = u.dob || '';
-        document.getElementById('country').value = u.country || '';
-        document.getElementById('state').value = u.state || '';
-        document.getElementById('city').value = u.city || '';
-        document.getElementById('pincode').value = u.pincode || '';
+  async function loadProfile(email) {
+    try {
+      const res = await fetch('/api/user?email=' + encodeURIComponent(email));
+      if (!res.ok) return;
+      const data = await res.json();
+      const u = data.user;
+      document.getElementById('email').value = u.email || email;
+      document.getElementById('name').value = u.name || '';
+      document.getElementById('phone').value = u.phone || '';
+      document.getElementById('age').value = u.age || '';
+      document.getElementById('ageGroup').value = u.ageGroup || '';
+      document.getElementById('dob').value = u.dob || '';
+      document.getElementById('country').value = u.country || '';
+      document.getElementById('state').value = u.state || '';
+      document.getElementById('city').value = u.city || '';
+      document.getElementById('pincode').value = u.pincode || '';
 
-        if (u.role) {
-          const roleRadio = document.querySelector(
-            'input[name="role"][value="' + u.role + '"]'
+      if (u.role) {
+        const roleRadio = document.querySelector(
+          'input[name="role"][value="' + u.role + '"]'
+        );
+        if (roleRadio) roleRadio.checked = true;
+      }
+
+      if (Array.isArray(u.workTags)) {
+        u.workTags.forEach((tag) => {
+          const cb = document.querySelector(
+            'input[name="workTags"][value="' + tag + '"]'
           );
-          if (roleRadio) roleRadio.checked = true;
-        }
-
-        if (Array.isArray(u.workTags)) {
-          u.workTags.forEach((tag) => {
-            const cb = document.querySelector(
-              'input[name="workTags"][value="' + tag + '"]'
-            );
-            if (cb) cb.checked = true;
-          });
-        }
-      } catch (err) {
-        console.error('Error loading profile', err);
+          if (cb) cb.checked = true;
+        });
       }
+    } catch (err) {
+      console.error('Error loading profile', err);
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const email = getEmailFromQuery();
+    if (!email) {
+      alert('No email found. Please login again.');
+      window.location.href = 'login.html';
+      return;
+    }
+    document.getElementById('email').value = email;
+    loadProfile(email);
+
+    // Logout handler
+    const logoutBtn = document.getElementById('logout-btn');
+    if (logoutBtn) {
+      logoutBtn.addEventListener('click', () => {
+        window.location.href = 'index.html';
+      });
     }
 
-    document.addEventListener('DOMContentLoaded', () => {
-      const email = getEmailFromQuery();
-      if (!email) {
-        alert('No email found. Please login again.');
-        window.location.href = 'login.html';
-        return;
-      }
-      document.getElementById('email').value = email;
-      loadProfile(email);
+    // Save profile and then go to home.html
+    document
+      .getElementById('profile-form')
+      .addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const formData = new FormData(form);
+        const workTags = formData.getAll('workTags');
+        formData.delete('workTags');
+        workTags.forEach((tag) => formData.append('workTags', tag));
 
-      // Logout handler
-      const logoutBtn = document.getElementById('logout-btn');
-      if (logoutBtn) {
-        logoutBtn.addEventListener('click', () => {
-          window.location.href = 'index.html';
-        });
-      }
-
-      document
-        .getElementById('profile-form')
-        .addEventListener('submit', async (e) => {
-          e.preventDefault();
-          const form = e.target;
-          const formData = new FormData(form);
-          const workTags = formData.getAll('workTags');
-          formData.delete('workTags');
-          workTags.forEach((tag) => formData.append('workTags', tag));
-
-          try {
-            const res = await fetch('/api/profile', {
-              method: 'POST',
-              body: new URLSearchParams(formData)
-            });
-            const data = await res.json();
-            if (!res.ok) {
-              alert(data.message || 'Failed to save profile');
-              return;
-            }
-            alert('Profile saved. Your information is stored for testing.');
-          } catch (err) {
-            alert('Error saving profile.');
+        try {
+          const res = await fetch('/api/profile', {
+            method: 'POST',
+            body: new URLSearchParams(formData)
+          });
+          const data = await res.json();
+          if (!res.ok) {
+            alert(data.message || 'Failed to save profile');
+            return;
           }
-        });
-    });
-  </script>
-</body>
-</html>
+          alert('Profile saved. Redirecting to your Jugaad home.');
+
+          const savedEmail = formData.get('email');
+          window.location.href = 'home.html?email=' + encodeURIComponent(savedEmail);
+        } catch (err) {
+          alert('Error saving profile.');
+        }
+      });
+  });
+</script>

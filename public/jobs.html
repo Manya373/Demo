@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jugaad – All Jobs</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background-color: #f3f4f6;
+      color: #111827;
+      margin: 0;
+      padding: 1.5rem;
+    }
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+      background-color: #ffffff;
+      border-radius: 1.25rem;
+      padding: 1.5rem 1.75rem;
+      box-shadow: 0 24px 50px -30px rgba(15,23,42,0.8);
+    }
+    .top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+    .back-link {
+      font-size: 0.85rem;
+      color: #2563eb;
+      text-decoration: none;
+    }
+    .back-link:hover {
+      text-decoration: underline;
+    }
+    h1 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin: 0.4rem 0 0.2rem;
+    }
+    p {
+      font-size: 0.9rem;
+      color: #4b5563;
+      margin-bottom: 0.8rem;
+    }
+    .cards {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 0.7rem;
+      margin-top: 0.5rem;
+    }
+    .card {
+      background-color: #ffffff;
+      border-radius: 0.9rem;
+      padding: 0.8rem 0.9rem;
+      border: 1px solid #e5e7eb;
+      font-size: 0.85rem;
+    }
+    .card h2 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+    .card p {
+      margin-bottom: 0.2rem;
+    }
+    .tag-chip {
+      display: inline-flex;
+      padding: 0.1rem 0.45rem;
+      border-radius: 999px;
+      background-color: #eef2ff;
+      color: #4338ca;
+      font-size: 0.7rem;
+      font-weight: 500;
+      margin-right: 0.2rem;
+      margin-top: 0.1rem;
+    }
+    .btn-primary {
+      padding: 0.45rem 0.9rem;
+      border-radius: 999px;
+      border: 1px solid #f97316;
+      background-color: #ffffff;
+      color: #f97316;
+      font-weight: 600;
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-row">
+      <a href="#" id="back-home" class="back-link">← Back to Jugaad Home</a>
+      <div style="font-size:0.85rem;color:#6b7280;">Helper view</div>
+    </div>
+    <h1>All jobs matching your skills</h1>
+    <p>Browse all available jobs. Later you can add filters for distance, pay and time.</p>
+
+    <div class="cards" id="jobs-list"></div>
+  </div>
+
+  <script>
+    function getEmailFromQuery() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get('email');
+    }
+
+    const ALL_JOBS = [
+      { title: 'Science project help (class 8)', tag: 'teaching', city: 'Nearby', money: '₹300', rating: 4.8, distance: '1.2 km' },
+      { title: 'Birthday function support',      tag: 'events',   city: 'Nearby', money: '₹600', rating: 4.7, distance: '2.0 km' },
+      { title: 'Basic laptop + phone setup',    tag: 'tech',     city: 'Nearby', money: '₹400', rating: 4.9, distance: '0.8 km' },
+      { title: 'Evening child care, 2 hours',   tag: 'child-care', city: 'Nearby', money: '₹500', rating: 4.6, distance: '1.5 km' },
+      { title: 'Home-style dinner for 4 people', tag: 'cooking', city: 'Nearby', money: '₹550', rating: 4.8, distance: '2.3 km' },
+      { title: 'Maths tuition · class 6–7',      tag: 'teaching', city: 'Nearby', money: '₹350', rating: 4.7, distance: '1.8 km' },
+      { title: 'Weekend event helper',           tag: 'events',   city: 'Nearby', money: '₹700', rating: 4.6, distance: '3.0 km' },
+      { title: 'Wi‑Fi + printer setup',          tag: 'tech',     city: 'Nearby', money: '₹350', rating: 4.8, distance: '0.9 km' }
+    ];
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const email = getEmailFromQuery();
+      const back = document.getElementById('back-home');
+      if (back && email) {
+        back.href = 'home.html?email=' + encodeURIComponent(email);
+      }
+
+      const list = document.getElementById('jobs-list');
+      list.innerHTML = ALL_JOBS.map(j => `
+        <article class="card">
+          <h2>${j.title}</h2>
+          <p>${j.city} · ${j.distance}</p>
+          <p>Pay: ${j.money} per task</p>
+          <p>Category: <span class="tag-chip">${j.tag}</span></p>
+          <p>Hirer rating: ⭐ ${j.rating}</p>
+          <button class="btn-primary" type="button">View details</button>
+        </article>
+      `).join('');
+    });
+  </script>
+</body>
+</html>
